@@ -1,0 +1,22 @@
+<configuration scan="true">
+	<appender name="balihoo" class="ch.qos.logback.core.rolling.RollingFileAppender">
+		<file>/var/log/balihoo/test.log</file>
+		<append>true</append>
+		<rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+			<!-- Rollover daily... -->
+			<fileNamePattern>/var/log/balihoo/test-%d{yyyy-MM-dd}.log.%i.gz</fileNamePattern>
+			<timeBasedFileNamingAndTriggeringPolicy class="ch.qos.logback.core.rolling.SizeAndTimeBasedFNATP">
+				<!-- ...or whenever the file size reaches 100MB -->
+				<maxFileSize>100MB</maxFileSize>
+			</timeBasedFileNamingAndTriggeringPolicy>
+			<!-- Keep up to 10 archived log files. -->
+			<maxHistory>10</maxHistory>
+		</rollingPolicy>
+		<encoder class="com.balihoo.commons.server.log.JsonEncoder"/>
+	</appender>
+	
+	<root level="INFO">
+		<appender-ref ref="balihoo"/>
+	</root>
+</configuration>
+
